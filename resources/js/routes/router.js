@@ -1,6 +1,6 @@
 import Home from '../views/Home.vue'
-import Hello from '../views/Hello.vue'
-import Example from '../views/Example.vue'
+import SaibaMais from '../views/SaibaMais.vue'
+import Contato from '../views/Contato.vue'
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
@@ -10,14 +10,14 @@ const routes = [
         component: Home
     },
     {
-        path: '/hello',
-        name: 'hello',
-        component: Hello
+        path: '/saiba-mais',
+        name: 'saiba-mais',
+        component: SaibaMais
     },
     {
-        path: '/example',
-        name: 'example',
-        component: Example
+        path: '/contato',
+        name: 'contato',
+        component: Contato
     },
 ];
 

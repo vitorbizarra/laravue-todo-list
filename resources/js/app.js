@@ -7,8 +7,8 @@ const app = createApp({
     components: { App }
 });
 
-// import ExampleComponent from './components/ExampleComponent.vue';
-// app.component('example-component', ExampleComponent);
+import Navbar from './components/Navbar.vue';
+app.component('navbar-component', Navbar);
 
 app.use(router)
 

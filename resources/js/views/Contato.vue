@@ -1,5 +1,5 @@
 <template>
-    <h2>Hello Component!</h2>
+    <h2>Contato Component!</h2>
 </template>
 
 <script>
