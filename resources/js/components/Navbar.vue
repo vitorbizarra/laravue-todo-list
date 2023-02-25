@@ -17,7 +17,7 @@
             <div class="hidden lg:flex lg:gap-x-12">
                 <router-link :to="{ name: 'home' }" class="font-semibold leading-6 text-gray-900">Home</router-link>
                 <router-link :to="{ name: 'saiba-mais' }" class="font-semibold leading-6 text-gray-900">Saiba Mais</router-link>
-                <router-link :to="{ name: 'example' }" class="font-semibold leading-6 text-gray-900">Example</router-link>
+                <router-link :to="{ name: 'contato' }" class="font-semibold leading-6 text-gray-900">Contato</router-link>
             </div>
             <div class="hidden lg:flex lg:flex-1 lg:justify-end">
                 <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Log in <span
@@ -48,9 +48,9 @@
                             <router-link :to="{ name: 'saiba-mais' }"
                                 class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                 @click="mobileMenuOpen = false">Saiba Mais</router-link>
-                            <router-link :to="{ name: 'example' }"
+                            <router-link :to="{ name: 'contato' }"
                                 class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                                @click="mobileMenuOpen = false">Example</router-link>
+                                @click="mobileMenuOpen = false">Contato</router-link>
                         </div>
                         <div class="py-6">
                             <a href="#"
