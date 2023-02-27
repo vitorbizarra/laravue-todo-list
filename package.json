@@ -21,6 +21,7 @@
         "@headlessui/vue": "^1.7.11",
         "@heroicons/vue": "^2.0.16",
         "vue-router": "^4.1.6",
-        "vuetify": "^3.1.6"
+        "vuetify": "^3.1.6",
+        "vuex": "^4.1.0"
     }
 }

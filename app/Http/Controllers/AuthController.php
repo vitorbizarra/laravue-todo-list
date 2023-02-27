@@ -17,7 +17,22 @@ class AuthController extends Controller
 
         $token = auth('sanctum')->user()->createToken('access_token');
 
-        return response()->json(['data' => ['token' => $token->plainTextToken]]);
+        return response()->json([
+            'user' => auth()->user(),
+            'token' => $token->plainTextToken
+        ]);
+    }
+
+    public function logout()
+    {
+        if (auth()->check()) {
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
+
+            auth()->logout();
+        }
+
+        return response()->noContent();
     }
 
     public function register(Request $request, User $user)

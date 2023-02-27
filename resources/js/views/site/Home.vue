@@ -20,5 +20,19 @@
 </template>
 
 <script>
-export default {}
+import axios from '@/services/axios'
+export default {
+    name: 'Home',
+    methods: {
+        async testApi() {
+            const res = await axios.get('api/test');
+            console.log(res.data);
+        }
+    },
+    computed: {
+        user() {
+            return this.$store.getters.user;
+        }
+    }
+}
 </script>
