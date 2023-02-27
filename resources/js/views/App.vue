@@ -8,6 +8,9 @@
 <script>
 export default {
     name: "App",
+    created() {
+        this.$store.dispatch('initState');
+    },
     methods: {
         logout() {
             this.$store.dispatch('logout');
