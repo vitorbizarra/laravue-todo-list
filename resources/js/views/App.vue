@@ -11,11 +11,6 @@ export default {
     created() {
         this.$store.dispatch('initState');
     },
-    methods: {
-        logout() {
-            this.$store.dispatch('logout');
-        }
-    },
     computed: {
         isAuthenticated() {
             return this.$store.getters.isAuthenticated;

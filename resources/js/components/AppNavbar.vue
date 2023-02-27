@@ -15,7 +15,8 @@
                 </button>
             </div>
             <div class="hidden lg:flex lg:gap-x-12">
-                <router-link :to="{ name: 'minha-conta' }" class="font-semibold leading-6 text-gray-900">Minha conta</router-link>
+                <router-link :to="{ name: 'minha-conta' }" class="font-semibold leading-6 text-gray-900">Minha
+                    conta</router-link>
             </div>
             <div class="hidden lg:flex lg:flex-1 lg:justify-end">
                 <a href="#" class="text-sm font-semibold leading-6 text-gray-900" @click="logout">Logout</a>
@@ -54,7 +55,7 @@
     </header>
 </template>
   
-<script setup>
+<script>
 import { ref } from 'vue'
 import {
     Dialog,
@@ -66,4 +67,12 @@ import {
 } from '@heroicons/vue/24/outline'
 
 const mobileMenuOpen = ref(false)
+
+export default {
+    methods: {
+        logout() {
+            this.$store.dispatch('logout');
+        }
+    }
+}
 </script>

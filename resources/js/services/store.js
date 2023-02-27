@@ -1,5 +1,5 @@
-import Vuex from 'vuex';
 import _ from 'lodash';
+import Vuex from 'vuex';
 import axios from './axios';
 import router from '../routes/router'
 
@@ -34,16 +34,13 @@ export default new Vuex.Store({
 
             router.push('/minha-conta');
         },
-        logout({ commit }) {
+        async logout({ commit }) {
             axios.post('logout');
-
             commit('unauthenticateUser');
-
             router.push('/login');
         },
         initState({ commit }) {
             const session = sessionStorage.getItem('session')
-            console.log(session)
             if (session && typeof session === 'string' && session !== '') {
                 commit('authenticateUser', JSON.parse(session))
             }
