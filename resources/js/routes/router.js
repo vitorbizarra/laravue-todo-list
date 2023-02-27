@@ -27,11 +27,23 @@ const routes = [
         meta: { requiresAuth: false }
     },
     {
+        path: '/dashboard',
+        name: 'dashboard',
+        component: () => import('../views/app/Dashboard.vue'),
+        meta: { requiresAuth: true }
+    },
+    {
         path: '/minha-conta',
         name: 'minha-conta',
         component: () => import('../views/app/Profile.vue'),
         meta: { requiresAuth: true }
     },
+    {
+        path: '/:catchAll(.*)',
+        name: 'notFound',
+        component: () => import('../views/NotFound.vue'),
+        meta: { requiresAuth: false }
+    }
 ];
 
 const router = createRouter({ history: createWebHistory(), routes });

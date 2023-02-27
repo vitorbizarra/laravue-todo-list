@@ -15,11 +15,14 @@
                 </button>
             </div>
             <div class="hidden lg:flex lg:gap-x-12">
+                <router-link :to="{ name: 'dashboard' }"
+                    class="font-semibold leading-6 text-gray-900">Dashboard</router-link>
                 <router-link :to="{ name: 'minha-conta' }" class="font-semibold leading-6 text-gray-900">Minha
                     conta</router-link>
             </div>
             <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-                <a href="#" class="text-sm font-semibold leading-6 text-gray-900" @click="logout">Logout</a>
+                <a href="#" class="text-sm font-semibold leading-6 text-gray-900" @click="logout">Logout
+                </a>
             </div>
         </nav>
         <Dialog as="div" class="lg:hidden" @close="mobileMenuOpen = false" :open="mobileMenuOpen">
@@ -39,6 +42,9 @@
                 <div class="mt-6 flow-root">
                     <div class="-my-6 divide-y divide-gray-500/10">
                         <div class="space-y-2 py-6">
+                            <router-link :to="{ name: 'dashboard' }"
+                                class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                @click="mobileMenuOpen = false">Dashboard</router-link>
                             <router-link :to="{ name: 'minha-conta' }"
                                 class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                 @click="mobileMenuOpen = false">Minha conta</router-link>
@@ -46,7 +52,8 @@
                         <div class="py-6">
                             <a href="#"
                                 class="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                                @click="logout">Logout</a>
+                                @click="logout">Logout
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -64,6 +71,7 @@ import {
 import {
     Bars3Icon,
     XMarkIcon,
+    ArrowLeftOnRectangleIcon
 } from '@heroicons/vue/24/outline'
 
 const mobileMenuOpen = ref(false)

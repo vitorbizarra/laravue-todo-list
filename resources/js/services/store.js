@@ -32,7 +32,7 @@ export default new Vuex.Store({
 
             commit('authenticateUser', res.data);
 
-            router.push('/minha-conta');
+            router.push('/dashboard');
         },
         async logout({ commit }) {
             axios.post('logout');
