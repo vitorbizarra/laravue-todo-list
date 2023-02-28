@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Validation\Rules\Password;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -18,7 +19,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
     ];
@@ -42,36 +44,64 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function rules()
+    public function tasks()
+    {
+        return $this->hasMany(\App\Models\Task::class);
+    }
+
+    public function rules()
     {
         return [
-            'name'                   => ['required'],
-            'email'                  => ['required', 'email'],
-            'password'               => ['required', 'min:3'],
-            'password_confirmation'  => ['same:password'],
+            'first_name'             => ['required'],
+            'last_name'              => ['required'],
+            'email'                  => ['required', 'email', 'unique:users'],
+            'password'               => ['required', Password::min(8)->letters()->numbers()->mixedCase()->symbols()],
+            'password_confirmation'  => ['required', 'same:password'],
         ];
     }
 
-    public static function feedbacks()
+    public function feedbacks()
     {
         return [
-            'name'  => ['required' => 'O nome é obrigatório'],
+            'first_name' => ['required' => 'O nome é obrigatório.'],
+            'last_name'  => ['required' => 'O sobrenome é obrigatório.'],
             'email' => [
-                'required' => 'O email é obrigatório',
-                'email'    => 'Formato de email inválido'
+                'required' => 'O email é obrigatório.',
+                'email'    => 'Formato de email inválido.',
+                'unique'   => 'O email informado já está sendo utilizado.'
             ],
             'password' => [
-                'required' => 'A senha é obrigatória',
-                'min'      => 'A senha deve ter no mínimo 3 caracteres'
+                'required'   => 'A senha é obrigatória.',
+                'min'        => 'A senha deve ter ao menos 8 caracteres.',
+                'letters'    => 'A senha deve ter ao menos uma letra.',
+                'numbers'    => 'A senha deve ter ao menos um número.',
+                'mixed_case' => 'A senha deve ter ao menos uma letra maiúscula e uma minúscula.',
+                'symbols'    => 'A senha deve ter ao menos um caractere especial.',
             ],
             'password_confirmation' => [
-                'same' => 'As senhas não conferem'
+                'required' => 'Confirme as senhas.',
+                'same'     => 'As senhas não conferem.'
             ]
         ];
     }
 
-    public function tasks()
+    public function loginRules()
     {
-        return $this->hasMany(\App\Models\Task::class);
+        $rules['email'] = $this->rules()['email'];
+        unset($rules['email']['unique:users']);
+
+        $rules['password'] = $this->rules()['password'];
+
+        return $rules;
+    }
+
+    public function loginFeedbacks()
+    {
+        $feedbacks['email'] = $this->feedbacks()['email'];
+        unset($feedbacks['email']['unique']);
+
+        $feedbacks['password'] = $this->feedbacks()['password'];
+
+        return $feedbacks;
     }
 }

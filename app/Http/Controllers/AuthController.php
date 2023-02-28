@@ -9,17 +9,9 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        $user_rules = User::rules();
-        $user_feedbacks = User::feedbacks();
+        $user = new User();
 
-        $rules['email'] = $user_rules['email'];
-        $rules['password'] = $user_rules['password'];
-
-        $feedbacks['email'] = $user_feedbacks['email'];
-        $feedbacks['password'] = $user_feedbacks['password'];
-
-        $request->validate($rules, $feedbacks);
-
+        $request->validate($user->loginRules(), $user->loginFeedbacks());
         $credentials = $request->only('email', 'password');
 
         if (!auth()->attempt($credentials)) {
@@ -46,16 +38,21 @@ class AuthController extends Controller
         return response()->noContent();
     }
 
-    public function register(Request $request, User $user)
+    public function register(Request $request)
     {
-        $userData = $request->only('name', 'email', 'password');
+        $user = new User();
+
+        $request->validate($user->rules(), $user->feedbacks());
+
+        $userData = $request->only('first_name', 'last_name', 'email', 'password');
         $userData['password'] = bcrypt($userData['password']);
 
-        if (!$user = $user->create($userData)) {
-            abort(500, 'Error to create a new user.');
+        $user->fill($userData);
+
+        if (!$user->save()) {
+            return response()->json(['message' => 'Não foi possível realizar o cadastro. Tente novamente mais tarde.'], 500);
         }
 
-
-        return response()->json(['data' => ['user' => $user]]);
+        return response()->json(['message' => 'Cadastro realizado com sucesso!'], 200);
     }
 }
