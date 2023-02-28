@@ -41,6 +41,18 @@ export default new Vuex.Store({
                 return error.response.data.message;
             }
         },
+        async register({ commit }, data) {
+            try {
+                await axios.get("../../sanctum/csrf-cookie");
+
+                const res = await axios.post("register", credentials);
+
+                router.push("/login");
+            } catch (error) {
+                let message = error.response.data.message.split('(')[0];
+                return message;
+            }
+        },
         async logout({ commit }) {
             axios.post("logout");
             commit("unauthenticateUser");
@@ -61,7 +73,7 @@ export default new Vuex.Store({
             if (session && typeof session === "string" && session !== "") {
                 data = JSON.parse(session);
             }
-            
+
             state.session.authenticated = _.isEqual(data, state.session);
             return state.session.authenticated;
         },
