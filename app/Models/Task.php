@@ -33,4 +33,61 @@ class Task extends Model
     {
         return $this->belongsTo(\App\Models\User::class);
     }
+
+    public function rules()
+    {
+        return [
+            'title'       => ['required', 'max:80'],
+            'description' => ['max:255'],
+        ];
+    }
+
+    public function feedbacks()
+    {
+        return [
+            'title'       => [
+                'required' => 'O título da tarefa é obrigatório.',
+                'max'      => 'O título da tarefa deve ter no máximo 80 caracteres.'
+            ],
+            'description' => ['max' => 'A descrição da tarefa deve ter no máximo 255 caracteres.'],
+        ];
+    }
+
+    /**
+     * Retorna apenas as regras de validação dos campos recebidos no request
+     * 
+     * @param array $request_fields
+     * @return array
+     */
+    public function getRulesForPatchUpdate(array $request_fields)
+    {
+        $rules = $this->rules();
+
+        foreach ($rules as $field => $field_rules) {
+            if (!in_array($field, $request_fields)) {
+                unset($rules[$field]);
+            }
+        }
+
+        return $rules;
+    }
+    
+    /**
+     * Retorna apenas os feedbacks das regras de validação dos campos recebidos no request
+     * 
+     * @param array $request_fields
+     * @return array
+     */
+    public function getFeedbacksForPatchUpdate(array $request_fields)
+    {
+        $feedbacks = $this->feedbacks();
+
+        foreach ($feedbacks as $field => $rules_feedbacks) {
+            if (!in_array($field, $request_fields)) {
+                unset($feedbacks[$field]);
+            }
+        }
+
+        return $feedbacks;
+    }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('title', 80);
-            $table->tinyText('description');
+            $table->tinyText('description')->nullable();
             $table->integer('position')->default(1);
             $table->integer('status')->default(0);
             $table->timestamps();
