@@ -9,10 +9,7 @@ export default new Vuex.Store({
             authenticated: null,
             user: null,
             token: null,
-        },
-        error: {
-            message: null,
-        },
+        }
     },
     mutations: {
         authenticateUser(state, data) {
@@ -26,10 +23,7 @@ export default new Vuex.Store({
             state.session.authenticated = null;
             state.session.token = null;
             state.session.user = null;
-        },
-        setError(state, message) {
-            state.error.message = message;
-        },
+        }
     },
     actions: {
         async login({ commit }, credentials) {
@@ -44,7 +38,7 @@ export default new Vuex.Store({
 
                 router.push("/dashboard");
             } catch (error) {
-                commit("setError", error.response.data.message);
+                return error.response.data.message;
             }
         },
         async logout({ commit }) {
@@ -76,10 +70,7 @@ export default new Vuex.Store({
         },
         userToken(state) {
             return state.session.token;
-        },
-        errors(state) {
-            return state.error.message;
-        },
+        }
     },
     modules: {},
 });

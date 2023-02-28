@@ -11,10 +11,10 @@
                     <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">crie sua conta</a>
                 </p>
             </div>
-            <form class="mt-8 space-y-6" action="" method="POST" @submit.prevent="submitLoginForm($event)">
-                <div v-if="hasError" class="w-100 bg-red-400 px-2 py-4 rounded shadow border border-red-600">
+            <form class="mt-8 space-y-6" @submit.prevent="submitLoginForm($event)">
+                <div v-if="this.error.message" class="w-100 bg-red-500 px-2 py-4 rounded shadow">
                     <p class="text-white">
-                        {{ this.$store.state.error.message }}
+                        {{ this.error.message }}
                     </p>
                 </div>
                 <div class="-space-y-px shadow-sm">
@@ -40,7 +40,7 @@
 
                 <div>
                     <button type="submit"
-                        class="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        class="group relative flex mx-auto w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white transition ease-in-out delay-150 hover:bg-indigo-500 duration-300">
                         Entrar
                     </button>
                 </div>
@@ -54,19 +54,25 @@ export default {
     data() {
         return {
             form: {
-                email: "",
-                password: "",
+                email: null,
+                password: null,
+            },
+            error: {
+                message: null
             }
         };
     },
     methods: {
-        submitLoginForm() {
-            this.$store.dispatch('login', this.form);
+        async submitLoginForm() {
+            const response = await this.$store.dispatch('login', this.form);
+
+            if (response) {
+                this.error.message = response;
+            }
         },
-    },
-    computed: {
         hasError() {
-            return (this.$store.getters.errors != null);
+            console.log(this.error.message != null);
+            return (this.error.message != null);
         }
     }
 }
