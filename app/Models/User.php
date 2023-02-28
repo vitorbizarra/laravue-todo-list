@@ -87,21 +87,20 @@ class User extends Authenticatable
 
     public function loginRules()
     {
-        $rules['email'] = $this->rules()['email'];
-        unset($rules['email']['unique:users']);
-
-        $rules['password'] = $this->rules()['password'];
-
-        return $rules;
+        return [
+            'email' => ['required', 'email'],
+            'password' => ['required']
+        ];
     }
 
     public function loginFeedbacks()
     {
-        $feedbacks['email'] = $this->feedbacks()['email'];
-        unset($feedbacks['email']['unique']);
-
-        $feedbacks['password'] = $this->feedbacks()['password'];
-
-        return $feedbacks;
+        return [
+            'email' => [
+                'required' => 'O email é obrigatório.',
+                'email' => 'O formato do email informado é inválido.'
+            ],
+            'password' => ['required' => 'A senha é obrigatória.']
+        ];
     }
 }
