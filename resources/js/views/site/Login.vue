@@ -12,6 +12,11 @@
                 </p>
             </div>
             <form class="mt-8 space-y-6" action="" method="POST" @submit.prevent="submitLoginForm($event)">
+                <div v-if="hasError" class="w-100 bg-red-400 px-2 py-4 rounded shadow border border-red-600">
+                    <p class="text-white">
+                        {{ this.$store.state.error.message }}
+                    </p>
+                </div>
                 <div class="-space-y-px shadow-sm">
                     <div class="mb-4">
                         <label for="email-address" class="sr-only">Email</label>
@@ -45,7 +50,6 @@
 </template>
   
 <script>
-import axios from '../../services/axios';
 export default {
     data() {
         return {
@@ -58,6 +62,11 @@ export default {
     methods: {
         submitLoginForm() {
             this.$store.dispatch('login', this.form);
+        },
+    },
+    computed: {
+        hasError() {
+            return (this.$store.getters.errors != null);
         }
     }
 }

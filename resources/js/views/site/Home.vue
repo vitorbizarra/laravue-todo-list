@@ -20,24 +20,5 @@
 </template>
 
 <script>
-import axios from '@/services/axios'
-export default {
-    name: 'Home',
-    data() {
-        return {
-            session: JSON.parse(sessionStorage.getItem('session'))
-        }
-    },
-    methods: {
-        async testApi() {
-            const res = await axios.get('api/test');
-            console.log(res.data);
-        }
-    },
-    computed: {
-        user() {
-            return this.$store.getters.user;
-        }
-    }
-}
+export default {}
 </script>

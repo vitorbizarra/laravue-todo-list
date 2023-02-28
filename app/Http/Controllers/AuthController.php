@@ -9,10 +9,21 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
+        $user_rules = User::rules();
+        $user_feedbacks = User::feedbacks();
+
+        $rules['email'] = $user_rules['email'];
+        $rules['password'] = $user_rules['password'];
+
+        $feedbacks['email'] = $user_feedbacks['email'];
+        $feedbacks['password'] = $user_feedbacks['password'];
+
+        $request->validate($rules, $feedbacks);
+
         $credentials = $request->only('email', 'password');
 
         if (!auth()->attempt($credentials)) {
-            abort(401, 'Invalid Credentials.');
+            return response()->json(['message' => 'Login ou senha incorreto(s).'], 401);
         }
 
         $token = auth('sanctum')->user()->createToken('access_token');

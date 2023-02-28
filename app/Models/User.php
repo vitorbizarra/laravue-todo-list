@@ -12,6 +12,34 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public static function rules()
+    {
+        return [
+            'name'                   => ['required'],
+            'email'                  => ['required', 'email'],
+            'password'               => ['required', 'min:3'],
+            'password_confirmation'  => ['same:password'],
+        ];
+    }
+
+    public static function feedbacks()
+    {
+        return [
+            'name'  => ['required' => 'O nome é obrigatório'],
+            'email' => [
+                'required' => 'O email é obrigatório',
+                'email'    => 'Formato de email inválido'
+            ],
+            'password' => [
+                'required' => 'A senha é obrigatória',
+                'min'      => 'A senha deve ter no mínimo 3 caracteres'
+            ],
+            'password_confirmation' => [
+                'same' => 'As senhas não conferem'
+            ]
+        ];
+    }
+
     /**
      * The attributes that are mass assignable.
      *
