@@ -16,6 +16,9 @@ app.component('app-navbar-component', AppNavbar);
 import Navbar from './components/Navbar.vue';
 app.component('navbar-component', Navbar);
 
+import TaskCard from './components/TaskCard.vue';
+app.component('task-card-component', TaskCard);
+
 app.use(router)
 app.use(store)
 

@@ -24,7 +24,7 @@ class TaskController extends Controller
     {
         $new_task = new Task();
         $request->validate($new_task->rules(), $new_task->feedbacks());
-        $new_task->fill($request->only('title', 'description'));
+        $new_task->fill($request->only('title', 'description', 'status'));
 
         $user = User::find(auth()->user()->id);
         return response()->json($user->tasks()->save($new_task), 200);
