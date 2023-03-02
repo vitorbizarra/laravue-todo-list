@@ -41,7 +41,7 @@ export default new Vuex.Store({
                 return error.response.data.message;
             }
         },
-        async register({ commit }, data) {
+        async register(credentials) {
             try {
                 await axios.get("../../sanctum/csrf-cookie");
 
@@ -64,6 +64,31 @@ export default new Vuex.Store({
                 commit("authenticateUser", JSON.parse(session));
             }
         },
+        async loadTasks() {
+            try {
+                const res = await axios.get('tasks');
+
+                let tasks = {
+                    todo: {},
+                    doing: {},
+                    done: {}
+                };
+
+                tasks.todo = res.data.filter(task => {
+                    task.status == 'todo';
+                });
+                tasks.doing = res.data.filter(task => {
+                    task.status == 'doing';
+                });
+                tasks.done = res.data.filter(task => {
+                    task.status == 'done';
+                });
+
+                return tasks;
+            } catch (error) {
+                return error.response.data;
+            }
+        }
     },
     getters: {
         isAuthenticated(state) {

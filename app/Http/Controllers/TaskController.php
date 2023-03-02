@@ -36,13 +36,11 @@ class TaskController extends Controller
     public function show(int $task_id)
     {
         $task = Task::find($task_id);
-
         if (is_null($task)) {
             return response()->json(['message' => 'Tarefa não encontrada.'], 404);
         }
 
         $user = User::find(auth()->user()->id);
-
         if ($user != $task->user) {
             return response()->json(['message' => 'Você não tem permissão para acessar essa tarefa.'], 403);
         }
@@ -56,13 +54,11 @@ class TaskController extends Controller
     public function update(Request $request, int $task_id)
     {
         $task = Task::find($task_id);
-
         if (is_null($task)) {
             return response()->json(['message' => 'Tarefa não encontrada.'], 404);
         }
 
         $user = User::find(auth()->user()->id);
-
         if ($user != $task->user) {
             return response()->json(['message' => 'Você não tem permissão para acessar essa tarefa.'], 403);
         }
@@ -91,13 +87,11 @@ class TaskController extends Controller
     public function destroy(int $task_id)
     {
         $task = Task::find($task_id);
-
         if (is_null($task)) {
             return response()->json(['message' => 'Tarefa não encontrada.'], 404);
         }
 
         $user = User::find(auth()->user()->id);
-
         if ($user != $task->user) {
             return response()->json(['message' => 'Você não tem permissão para acessar essa tarefa.'], 403);
         }
