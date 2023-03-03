@@ -10,6 +10,7 @@ export default new Vuex.Store({
             user: null,
             token: null,
         },
+        tasks: [],
     },
     mutations: {
         authenticateUser(state, data) {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
             state.session.authenticated = null;
             state.session.token = null;
             state.session.user = null;
+        },
+        setTasks(state, data) {
+            state.tasks = data;
         },
     },
     actions: {
@@ -64,21 +68,17 @@ export default new Vuex.Store({
                 commit("authenticateUser", JSON.parse(session));
             }
         },
-        async loadTasks() {
+        async loadTasks({ commit }) {
             try {
                 const res = await axios.get("tasks");
 
-                let tasks = {
-                    todo: {},
-                    doing: {},
-                    done: {},
-                };
+                let tasks = {};
 
                 tasks.todo = res.data.filter((task) => task.status == "todo");
                 tasks.doing = res.data.filter((task) => task.status == "doing");
                 tasks.done = res.data.filter((task) => task.status == "done");
 
-                return tasks;
+                commit("setTasks", tasks);
             } catch (error) {
                 return error.response.data;
             }
@@ -101,6 +101,9 @@ export default new Vuex.Store({
         },
         userToken(state) {
             return state.session.token;
+        },
+        tasks(state) {
+            return state.tasks;
         },
     },
     modules: {},

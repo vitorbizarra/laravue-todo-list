@@ -27,26 +27,14 @@
 
 <script>
 export default {
-    data() {
-        return {
-            tasks: {
-                todo: null,
-                doing: null,
-                done: null
-            }
-        }
+    methods: {},
+    created() {
+        this.$store.dispatch('loadTasks')
     },
-    methods: {
-        async getTasks() {
-            const res = await this.$store.dispatch('loadTasks');
-            this.tasks.todo = res['todo'];
-            this.tasks.doing = res['doing'];
-            this.tasks.done = res['done'];
-            console.log(this.tasks);
+    computed: {
+        tasks() {
+            return this.$store.getters.tasks
         }
-    },
-    mounted() {
-        this.getTasks();
     }
 }
 </script>
