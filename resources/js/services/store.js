@@ -45,7 +45,7 @@ export default new Vuex.Store({
                 return error.response.data.message;
             }
         },
-        async register(credentials) {
+        async register({ commit }, credentials) {
             try {
                 await axios.get("../../sanctum/csrf-cookie");
 

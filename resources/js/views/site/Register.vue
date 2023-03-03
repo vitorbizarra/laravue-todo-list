@@ -8,7 +8,8 @@
                 <p class="mt-2 text-center text-sm text-gray-600">
                     Já tem uma conta?
                     {{ ' ' }}
-                    <router-link :to="{ name: 'login' }" class="font-medium text-indigo-600 hover:text-indigo-500">Faça o login!</router-link>
+                    <router-link :to="{ name: 'login' }" class="font-medium text-indigo-600 hover:text-indigo-500">Faça o
+                        login!</router-link>
                 </p>
             </div>
             <form class="mt-8 space-y-6" @submit.prevent="submitRegisterForm($event)">
@@ -17,18 +18,36 @@
                         {{ this.error.message }}
                     </p>
                 </div>
-                <div class="-space-y-px shadow-sm">
+                <div class="shadow-sm">
+                    <div class="mb-4">
+                        <label for="first_name" class="sr-only">Nome</label>
+                        <input id="first_name" name="name" type="text" required
+                            class="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                            placeholder="Nome" v-model="form.first_name" />
+                    </div>
+                    <div class="mb-4">
+                        <label for="last_name" class="sr-only">Sobrenome</label>
+                        <input id="last_name" name="last_name" type="text" required
+                            class="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                            placeholder="Sobrenome" v-model="form.last_name" />
+                    </div>
                     <div class="mb-4">
                         <label for="email-address" class="sr-only">Email</label>
-                        <input id="email-address" name="email" type="email" autocomplete="email" required
+                        <input id="email-address" name="email" type="email" required
                             class="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                             placeholder="Email" v-model="form.email" />
                     </div>
-                    <div>
+                    <div class="mb-4">
                         <label for="password" class="sr-only">Senha</label>
-                        <input id="password" name="password" type="password" autocomplete="current-password" required
+                        <input id="password" name="password" type="password" required
                             class="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                             placeholder="Senha" v-model="form.password" />
+                    </div>
+                    <div>
+                        <label for="password_confirmation" class="sr-only">Confirme a senha</label>
+                        <input id="password_confirmation" name="password_confirmation" type="password" required
+                            class="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                            placeholder="Confirme a senha" v-model="form.password_confirmation" />
                     </div>
                 </div>
 
@@ -54,8 +73,11 @@ export default {
     data() {
         return {
             form: {
+                first_name: null,
+                last_name: null,
                 email: null,
                 password: null,
+                password_confirmation: null,
             },
             error: {
                 message: null
