@@ -1,5 +1,9 @@
 <template>
     <h1 class="mb-2 text-4xl font-bold px-6 tracking-tight text-gray-900">Dashboard</h1>
+    <div class="px-6 py-2">
+        <button class="bg-green-500 px-5 py-2 text-white rounded shadow" @click="toggleModal">Toggle
+            Modal</button>
+    </div>
     <div class="flex flex-nowrap w-100 px-6 space-x-36">
         <div class="w-100 grow">
             <h2 class="mt-6 text-3xl font-semibold tracking-tight text-gray-700">À Fazer:</h2>
@@ -23,17 +27,25 @@
             </div>
         </div>
     </div>
+    <task-form-modal-component v-if="modalStatus"></task-form-modal-component>
 </template>
 
 <script>
 export default {
-    methods: {},
+    methods: {
+        toggleModal() {
+            this.$store.dispatch('toggleModal')
+        }
+    },
     created() {
         this.$store.dispatch('loadTasks')
     },
     computed: {
         tasks() {
             return this.$store.getters.tasks
+        },
+        modalStatus() {
+            return this.$store.getters.modalStatus;
         }
     }
 }

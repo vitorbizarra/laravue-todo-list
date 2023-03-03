@@ -11,6 +11,9 @@ export default new Vuex.Store({
             token: null,
         },
         tasks: [],
+        modal: {
+            status: false
+        }
     },
     mutations: {
         authenticateUser(state, data) {
@@ -28,15 +31,22 @@ export default new Vuex.Store({
         setTasks(state, data) {
             state.tasks = data;
         },
+        cleanTasks(state) {
+            state.tasks = null
+        },
+        toggleModalStatus(state) {
+            state.modal.status = !state.modal.status;
+        }
     },
     actions: {
-        async login({ commit }, credentials) {
+        async login({ commit, dispatch }, credentials) {
             try {
                 await axios.get("../../sanctum/csrf-cookie");
 
                 const res = await axios.post("login", credentials);
-
                 res.data.authenticated = true;
+
+                dispatch("loadTasks");
 
                 commit("authenticateUser", res.data);
 
@@ -60,6 +70,7 @@ export default new Vuex.Store({
         async logout({ commit }) {
             axios.post("logout");
             commit("unauthenticateUser");
+            commit("cleanTasks");
             router.push("/login");
         },
         initState({ commit }) {
@@ -83,6 +94,17 @@ export default new Vuex.Store({
                 return error.response.data;
             }
         },
+        async storeTask({ commit }, data) {
+            try {
+                const res = await axios.post("tasks", data);
+                console.log(res);
+            } catch (error) {
+                return error.response.data;
+            }
+        },
+        toggleModal({ commit }) {
+            commit("toggleModalStatus");
+        }
     },
     getters: {
         isAuthenticated(state) {
@@ -105,6 +127,9 @@ export default new Vuex.Store({
         tasks(state) {
             return state.tasks;
         },
+        modalStatus(state) {
+            return state.modal.status;
+        }
     },
     modules: {},
 });

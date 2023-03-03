@@ -51,12 +51,6 @@
                     </div>
                 </div>
 
-                <div class="flex items-center justify-between">
-                    <div class="text-sm">
-                        <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Esqueceu a senha?</a>
-                    </div>
-                </div>
-
                 <div>
                     <button type="submit"
                         class="group relative flex mx-auto w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white transition ease-in-out delay-150 hover:bg-indigo-500 duration-300">
