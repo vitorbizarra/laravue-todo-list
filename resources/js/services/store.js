@@ -9,7 +9,7 @@ export default new Vuex.Store({
             authenticated: null,
             user: null,
             token: null,
-        }
+        },
     },
     mutations: {
         authenticateUser(state, data) {
@@ -23,7 +23,7 @@ export default new Vuex.Store({
             state.session.authenticated = null;
             state.session.token = null;
             state.session.user = null;
-        }
+        },
     },
     actions: {
         async login({ commit }, credentials) {
@@ -49,7 +49,7 @@ export default new Vuex.Store({
 
                 router.push("/login");
             } catch (error) {
-                let message = error.response.data.message.split('(')[0];
+                let message = error.response.data.message.split("(")[0];
                 return message;
             }
         },
@@ -66,29 +66,23 @@ export default new Vuex.Store({
         },
         async loadTasks() {
             try {
-                const res = await axios.get('tasks');
+                const res = await axios.get("tasks");
 
                 let tasks = {
                     todo: {},
                     doing: {},
-                    done: {}
+                    done: {},
                 };
 
-                tasks.todo = res.data.filter(task => {
-                    task.status == 'todo';
-                });
-                tasks.doing = res.data.filter(task => {
-                    task.status == 'doing';
-                });
-                tasks.done = res.data.filter(task => {
-                    task.status == 'done';
-                });
+                tasks.todo = res.data.filter((task) => task.status == "todo");
+                tasks.doing = res.data.filter((task) => task.status == "doing");
+                tasks.done = res.data.filter((task) => task.status == "done");
 
                 return tasks;
             } catch (error) {
                 return error.response.data;
             }
-        }
+        },
     },
     getters: {
         isAuthenticated(state) {
@@ -107,7 +101,7 @@ export default new Vuex.Store({
         },
         userToken(state) {
             return state.session.token;
-        }
+        },
     },
     modules: {},
 });

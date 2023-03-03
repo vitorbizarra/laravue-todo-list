@@ -20,9 +20,10 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         // \App\Models\User::create([
-        //     'name' => 'Vitor',
+        //     'first_name' => 'Vitor',
+        //     'last_name' => 'bizarra',
         //     'email' => 'vitor@makeweb.com.br',
-        //     'password' => bcrypt('123')
+        //     'password' => bcrypt('Vitor#123')
         // ]);
     }
 }
