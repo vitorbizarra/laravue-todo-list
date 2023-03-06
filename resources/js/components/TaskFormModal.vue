@@ -2,14 +2,14 @@
     <div id="defaultModal" tabindex="-1" aria-hidden="true"
         class="fixed flex top-0 left-0 right-0 z-50 w-full bg-black/50 p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
         <div class="relative w-full m-auto h-full max-w-2xl md:h-auto">
-            <!-- Modal content -->
+
             <div class="relative bg-white rounded-lg shadow">
-                <!-- Modal header -->
+
                 <div class="flex items-start justify-between p-4 border-b rounded-t">
                     <h3 class="text-xl font-semibold text-gray-900">
                         Adicionar tarefa
                     </h3>
-                    <button type="button" @click="toggleModal"
+                    <button type="button" @click="toggleNewTaskModal"
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                         data-modal-hide="defaultModal">
                         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
@@ -21,7 +21,7 @@
                         <span class="sr-only">Close modal</span>
                     </button>
                 </div>
-                <!-- Modal body -->
+
                 <div class="p-6 space-y-6">
                     <form ref="newTaskForm" @submit.prevent="submitNewTaskForm($event)">
                         <label for="email-address-icon" class="block text-sm font-medium text-gray-900">Título:</label>
@@ -37,7 +37,7 @@
                         <label for="message" class="block text-sm font-medium text-gray-900">Descrição:</label>
                         <textarea id="message" rows="4"
                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mb-4"
-                            placeholder="Descrição" v-model="this.form.description" required></textarea>
+                            placeholder="Descrição" v-model="this.form.description" maxlength="255" required></textarea>
                         <p class="text-sm text-red-400 mb-4" v-if="this.task_errors.description">
                             {{ this.task_errors.description[0] }}
                         </p>
@@ -57,7 +57,7 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b ">
-                    <button type="button" @click="toggleModal"
+                    <button type="button" @click="toggleNewTaskModal"
                         class="ml-auto text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Cancelar</button>
                     <button type="button" @click="submitNewTaskForm"
                         class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Adicionar</button>
@@ -85,8 +85,8 @@ export default {
         }
     },
     methods: {
-        toggleModal() {
-            this.$store.dispatch('toggleModal')
+        toggleNewTaskModal() {
+            this.$store.dispatch('toggleNewTaskModal')
         },
         async submitNewTaskForm() {
             const response = await this.$store.dispatch('storeTask', this.form);
@@ -97,7 +97,7 @@ export default {
                 status: null,
             }
             if (!response) {
-                this.$store.dispatch('toggleModal');
+                this.$store.dispatch('toggleNewTaskModal');
             }
             
             if (response) {

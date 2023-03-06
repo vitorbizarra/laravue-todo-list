@@ -11,8 +11,10 @@ export default new Vuex.Store({
             token: null,
         },
         tasks: [],
-        modal: {
-            status: false
+        modals: {
+            new_task: {
+                status: false
+            }
         }
     },
     mutations: {
@@ -34,8 +36,8 @@ export default new Vuex.Store({
         cleanTasks(state) {
             state.tasks = null
         },
-        toggleModalStatus(state) {
-            state.modal.status = !state.modal.status;
+        toggleNewTaskModalStatus(state) {
+            state.modals.new_task.status = !state.modals.new_task.status;
         }
     },
     actions: {
@@ -102,8 +104,8 @@ export default new Vuex.Store({
                 return error.response.data;
             }
         },
-        toggleModal({ commit }) {
-            commit("toggleModalStatus");
+        toggleNewTaskModal({ commit }) {
+            commit("toggleNewTaskModalStatus");
         }
     },
     getters: {
@@ -127,8 +129,8 @@ export default new Vuex.Store({
         tasks(state) {
             return state.tasks;
         },
-        modalStatus(state) {
-            return state.modal.status;
+        newTaskModalStatus(state) {
+            return state.modals.new_task.status;
         }
     },
     modules: {},
