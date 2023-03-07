@@ -6,7 +6,6 @@
                 <input type="text" id="email-address-icon"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 mb-4"
                     placeholder="Título" v-model="this.form.title" required>
-
                 <p class="text-sm text-red-400 mb-4" v-if="this.task_errors.title">
                     {{ this.task_errors.title[0] }}
                 </p>
@@ -36,20 +35,27 @@
     <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b ">
         <button type="button" @click="close()"
             class="ml-auto text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Cancelar</button>
-        <button type="button" @click="submitNewTaskForm"
-            class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Adicionar</button>
+        <button v-if="this.edit_task" type="button" @click="submitUpdateTaskForm"
+            class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Atualizar</button>
+
+        <button v-if="!this.edit_task" type="button" @click="submitNewTaskForm"
+            class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Cadastrar</button>
     </div>
 </template>
 
 <script>
 
 export default {
+    props: {
+        edit_task: Object
+    },
     data() {
         return {
+            task_id: (this.edit_task && this.edit_task.id) ? this.edit_task.id : null,
             form: {
-                title: null,
-                description: null,
-                status: 'todo',
+                title: (this.edit_task && this.edit_task.title) ? this.edit_task.title : null,
+                description: (this.edit_task && this.edit_task.description) ? this.edit_task.description : null,
+                status: (this.edit_task && this.edit_task.status) ? this.edit_task.status : 'todo',
             },
             task_errors: {
                 title: null,
@@ -61,6 +67,23 @@ export default {
     methods: {
         async submitNewTaskForm() {
             const response = await this.$store.dispatch('storeTask', this.form);
+            this.$store.dispatch('loadTasks');
+            this.task_errors = {
+                title: null,
+                description: null,
+                status: null,
+            }
+
+            if (!response) {
+                this.close();
+            }
+        },
+        async submitUpdateTaskForm() {
+            let update_data = {
+                task_id: this.task_id,
+                task_data: this.form
+            }
+            const response = await this.$store.dispatch('updateTask', update_data);
             this.$store.dispatch('loadTasks');
             this.task_errors = {
                 title: null,

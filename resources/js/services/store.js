@@ -95,6 +95,13 @@ export default new Vuex.Store({
                 return error.response.data;
             }
         },
+        async updateTask({ commit }, data) {
+            try {
+                const res = await axios.put(`tasks/${data.task_id}`, data.task_data);
+            } catch (error) {
+                return error.response.data;
+            }
+        },
         async deleteTask({ dispatch }, task_id) {
             try {
                 await axios.delete(`tasks/${task_id}`);
