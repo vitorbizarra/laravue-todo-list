@@ -19,8 +19,11 @@ app.component('navbar-component', Navbar);
 import TaskCard from './components/TaskCard.vue';
 app.component('task-card-component', TaskCard);
 
-import TaskFormModal from './components/TaskFormModal.vue';
-app.component('task-form-modal-component', TaskFormModal);
+import BaseModal from './components/BaseModal.vue';
+app.component('base-modal-component', BaseModal);
+
+import TaskForm from './components/TaskForm.vue';
+app.component('task-form-component', TaskForm);
 
 app.use(router)
 app.use(store)

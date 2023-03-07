@@ -11,11 +11,6 @@ export default new Vuex.Store({
             token: null,
         },
         tasks: [],
-        modals: {
-            new_task: {
-                status: false
-            }
-        }
     },
     mutations: {
         authenticateUser(state, data) {
@@ -36,9 +31,6 @@ export default new Vuex.Store({
         cleanTasks(state) {
             state.tasks = null
         },
-        toggleNewTaskModalStatus(state) {
-            state.modals.new_task.status = !state.modals.new_task.status;
-        }
     },
     actions: {
         async login({ commit, dispatch }, credentials) {
@@ -99,14 +91,18 @@ export default new Vuex.Store({
         async storeTask({ commit }, data) {
             try {
                 const res = await axios.post("tasks", data);
-                console.log(res);
             } catch (error) {
                 return error.response.data;
             }
         },
-        toggleNewTaskModal({ commit }) {
-            commit("toggleNewTaskModalStatus");
-        }
+        async deleteTask({ dispatch }, task_id) {
+            try {
+                await axios.delete(`tasks/${task_id}`);
+                dispatch("loadTasks");
+            } catch (error) {
+                return error;
+            }
+        },
     },
     getters: {
         isAuthenticated(state) {
@@ -129,9 +125,6 @@ export default new Vuex.Store({
         tasks(state) {
             return state.tasks;
         },
-        newTaskModalStatus(state) {
-            return state.modals.new_task.status;
-        }
     },
     modules: {},
 });
