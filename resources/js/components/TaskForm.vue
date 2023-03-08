@@ -7,7 +7,7 @@
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 mb-4"
                     placeholder="Título" v-model="this.form.title" required>
                 <p class="text-sm text-red-400 mb-4" v-if="this.task_errors.title">
-                    {{ this.task_errors.title[0] }}
+                    {{ this.task_errors.title }}
                 </p>
             </div>
             <label for="message" class="block text-sm font-medium text-gray-900">Descrição:</label>
@@ -15,7 +15,7 @@
                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mb-4"
                 placeholder="Descrição" v-model="this.form.description" maxlength="255" required></textarea>
             <p class="text-sm text-red-400 mb-4" v-if="this.task_errors.description">
-                {{ this.task_errors.description[0] }}
+                {{ this.task_errors.description }}
             </p>
             <label for="countries" class="block text-sm font-medium text-gray-900">Status</label>
             <select id="countries"
@@ -27,7 +27,7 @@
             </select>
 
             <p class="text-sm text-red-400 mb-4" v-if="this.task_errors.status">
-                {{ this.task_errors.status[0] }}
+                {{ this.task_errors.status }}
             </p>
         </form>
 
@@ -67,14 +67,11 @@ export default {
     methods: {
         async submitNewTaskForm() {
             const response = await this.$store.dispatch('storeTask', this.form);
-            this.$store.dispatch('loadTasks');
-            this.task_errors = {
-                title: null,
-                description: null,
-                status: null,
-            }
+
+            this.validateErrors(response);
 
             if (!response) {
+                this.$store.dispatch('loadTasks');
                 this.close();
             }
         },
@@ -83,16 +80,20 @@ export default {
                 task_id: this.task_id,
                 task_data: this.form
             }
+
             const response = await this.$store.dispatch('updateTask', update_data);
-            this.$store.dispatch('loadTasks');
-            this.task_errors = {
-                title: null,
-                description: null,
-                status: null,
-            }
+            this.validateErrors(response);
 
             if (!response) {
+                this.$store.dispatch('loadTasks');
                 this.close();
+            }
+        },
+        validateErrors(response) {
+            this.task_errors = {
+                title: (response && response.errors && response.errors.title && response.errors.title[0]) ? response.errors.title[0] : null,
+                description: (response && response.errors && response.errors.description && response.errors.description[0]) ? response.errors.description[0] : null,
+                status: (response && response.errors && response.errors.status && response.errors.status[0]) ? response.errors.status[0] : null,
             }
         },
         close() {

@@ -2,7 +2,7 @@
     <div class="px-4 md:px-12">
         <h1 class="mb-2 text-4xl font-bold tracking-tight text-gray-900">Dashboard</h1>
         <div class="py-2">
-            <button class="bg-green-500 px-5 py-2 text-white rounded shadow" @click="openModal">Adicionar
+            <button class="bg-green-500 px-5 py-2 text-white font-medium rounded-md shadow" @click="openModal">Adicionar
                 Tarefa</button>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-x-10 items-stretch w-100">
