@@ -1,11 +1,11 @@
 <template>
     <Transition name="modal-outer">
         <div v-show="modalActive" id="defaultModal" tabindex="-1" aria-hidden="true"
-            class="fixed flex top-0 left-0 right-0 z-50 w-full bg-black/50 p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+            class="fixed flex top-0 left-0 right-0 z-50 w-full h-full bg-black/50 p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal">
 
             <Transition name="modal-inner">
-                <div v-if="modalActive" class="relative w-full m-auto h-full max-w-2xl md:h-auto">
-                    <div class="relative bg-white rounded-lg shadow">
+                <div v-if="modalActive" class="relative flex w-full m-auto h-full max-w-2xl md:h-auto">
+                    <div class="relative bg-white rounded-lg shadow m-auto w-full">
                         <div class="flex items-start justify-between p-4 border-b rounded-t">
                             <h3 class="text-xl font-semibold text-gray-900">
                                 {{ modalTitle }}

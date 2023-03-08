@@ -1,5 +1,5 @@
 <template>
-    <div class="relative isolate overflow-hidden bg-white px-6 py-12 sm:py-16 lg:overflow-visible lg:px-0">
+    <div class="relative isolate overflow-hidden bg-white px-6 py-6 md:py-12 lg:overflow-visible lg:px-0">
         <div
             class="mx-auto grid max-w-2xl grid-cols-1 gap-y-16 gap-x-8 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
             <div

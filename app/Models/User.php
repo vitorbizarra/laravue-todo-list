@@ -71,12 +71,12 @@ class User extends Authenticatable
                 'unique'   => 'O email informado já está sendo utilizado.'
             ],
             'password' => [
-                'required'   => 'A senha é obrigatória.',
-                'min'        => 'A senha deve ter ao menos 8 caracteres.',
-                'letters'    => 'A senha deve ter ao menos uma letra.',
-                'numbers'    => 'A senha deve ter ao menos um número.',
-                'mixed_case' => 'A senha deve ter ao menos uma letra maiúscula e uma minúscula.',
-                'symbols'    => 'A senha deve ter ao menos um caractere especial.',
+                'required'  => 'A senha é obrigatória.',
+                'min'       => 'A senha deve ter ao menos :min caracteres.',
+                'letters'   => 'A senha deve ter ao menos uma letra.',
+                'numbers'   => 'A senha deve ter ao menos um número.',
+                'mixedCase' => 'A senha deve ter ao menos uma letra maiúscula e uma minúscula.',
+                'symbols'   => 'A senha deve ter ao menos um caractere especial.',
             ],
             'password_confirmation' => [
                 'required' => 'Confirme as senhas.',

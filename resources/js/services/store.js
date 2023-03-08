@@ -29,7 +29,7 @@ export default new Vuex.Store({
             state.tasks = data;
         },
         cleanTasks(state) {
-            state.tasks = null
+            state.tasks = []
         },
     },
     actions: {
@@ -42,9 +42,14 @@ export default new Vuex.Store({
 
                 dispatch("loadTasks");
 
-                commit("authenticateUser", res.data);
+                if (this.state.tasks) {
+                    commit("authenticateUser", res.data);
+                }
 
-                router.push("/dashboard");
+                if(this.state.session.authenticated){
+                    router.push("/dashboard");
+                }
+
             } catch (error) {
                 return error.response.data.message;
             }

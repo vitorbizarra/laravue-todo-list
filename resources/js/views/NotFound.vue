@@ -1,8 +1,8 @@
 <template>
-    <main class="grid min-h-full place-items-center bg-white py-24 px-6 sm:py-32 lg:px-8">
-        <div class="text-center">
-            <p class="text-base font-bold text-indigo-600 text-9xl">404</p>
-            <h1 class="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">Página não encontrada</h1>
+    <div class="flex">
+        <div class="m-auto text-center py-44 md:py-64">
+            <h1 class="text-base font-bold text-indigo-600 text-8xl">404</h1>
+            <h2 class="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">Página não encontrada</h2>
             <div v-if="isAuthenticated">
                 <p class="mt-6 text-base leading-7 text-gray-600">Desculpe por isso! Por favor, visite sua dashboard para
                     chegar onde você precisa ir.
@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 </template>
 
 <script>

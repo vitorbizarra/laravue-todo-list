@@ -27,8 +27,8 @@ const routes = [
         meta: { requiresAuth: false },
     },
     {
-        path: "/registrar",
-        name: "registrar",
+        path: "/cadastro",
+        name: "cadastro",
         component: () => import("../views/site/Register.vue"),
         meta: { requiresAuth: false },
     },
