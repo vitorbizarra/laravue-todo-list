@@ -48,9 +48,9 @@ class Task extends Model
         return [
             'title'       => [
                 'required' => 'O título da tarefa é obrigatório.',
-                'max'      => 'O título da tarefa deve ter no máximo 80 caracteres.'
+                'max'      => 'O título da tarefa deve ter no máximo :max caracteres.'
             ],
-            'description' => ['max' => 'A descrição da tarefa deve ter no máximo 255 caracteres.'],
+            'description' => ['max' => 'A descrição da tarefa deve ter no máximo :max caracteres.'],
         ];
     }
 

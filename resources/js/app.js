@@ -25,6 +25,12 @@ app.component('base-modal-component', BaseModal);
 import TaskForm from './components/TaskForm.vue';
 app.component('task-form-component', TaskForm);
 
+import RegisterForm from './components/RegisterForm.vue';
+app.component('register-form-component', RegisterForm);
+
+import LoginForm from './components/LoginForm.vue';
+app.component('login-form-component', LoginForm);
+
 app.use(router)
 app.use(store)
 
