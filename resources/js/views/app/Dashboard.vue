@@ -1,5 +1,5 @@
 <template>
-    <div class="px-4 md:px-12">
+    <div class="px-4 md:pt-6 md:px-12">
         <h1 class="mb-2 text-4xl font-bold tracking-tight text-gray-900">Dashboard</h1>
         <div class="py-2">
             <button class="bg-green-500 px-5 py-2 text-white font-medium rounded-md shadow" @click="openModal">Adicionar
