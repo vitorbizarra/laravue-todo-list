@@ -2,7 +2,7 @@
 
 Projeto de uma Single Page Application (SPA) de um gerenciador de tarefas, onde você pode criar sua conta para poder cadastrar, editar, visualizar e excluír novas tarefas, desenvolvida utilizando VueJS como framework Frontend e Laravel como API REST.
 
-<image src="public/screenshot.png"></image>
+<image src="public/example.gif"></image>
 
 ## Primeiros Passos
 ### Instalação:
